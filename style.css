@@ -1,0 +1,239 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root{
+    --text-color: #fff;
+    --icon-color: #acacbe;
+    --icon-hover-bg: #5b5e71;
+    --placeholder-color: #ccc;
+    --outgoing-chat-bg: #343541;
+    --incoming-chat-bg: #444654;
+    --outgoing-chat-border: #343541;
+    --incoming-chat-border: #444654;
+}
+
+.light-mode{
+    --text-color: #343541;
+    --icon-color: #a9a9bc;
+    --icon-hover-bg: #f1f1f3;
+    --placeholder-color: #9f9f9f;
+    --outgoing-chat-bg: #fff;
+    --incoming-chat-bg: #f7f7f8;
+    --outgoing-chat-border: #fff;
+    --incoming-chat-border: #d9d9e3;
+}
+
+body{
+    background-color: var(--outgoing-chat-bg);
+}
+
+/* chat */
+.chat-container{
+    max-height: 100vh;
+    padding-bottom: 150px;
+    overflow-y: auto;
+}
+
+.chat-container .chat{
+    padding: 25px 10px;
+    display: flex;
+    justify-content: center;
+    color: var(--text-color);
+}
+/* ********** */
+:where(.chat-container, textarea)::-webkit-scrollbar{
+    width: 6px;
+}
+/*:where, birden fazla selektörü seçmek için kullanılıyor. seçtiklerimizde çıkacak olan scrollbara css vermek için o selektörleri yazdık */
+/* ::-webkit-scrollbar ile de scrollbarı seçtik. */
+
+:where(.chat-container, textarea)::-webkit-scrollbar-track{
+    background-color: var(--incoming-chat-bg);
+    border-radius: 25px;
+}
+
+:where(.chat-container, textarea)::-webkit-scrollbar-thumb{
+    background-color: var(--icon-color);
+    border-radius: 25px;
+}
+/* ********** */
+
+.chat-container .chat.outgoing{   /*ikinci class vermiştik. ona ulaşmak için böyle birleşik yazdık*/
+    background-color: var(--outgoing-chat-bg);
+    border: 1px solid var(--outgoing-chat-border);
+}
+
+.chat-container .chat.incoming{
+    background-color: var(--incoming-chat-bg);
+    border: 1px solid var(--incoming-chat-border);
+}
+
+.chat .chat-content{
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    align-items: flex-start;    /*içindekileri sola dayadık*/
+    justify-content: space-between;
+}
+
+.chat .chat-content span{
+    font-size: 30px;
+    color: var(--icon-color);
+    visibility: hidden;       /*ilk başta görünmeyecek, hover olduğunda görünecek*/
+}
+
+.chat .chat-details{
+    display: flex;
+    align-items: center;
+}
+
+.chat .chat-details img{
+    width: 35px;
+    height: 35px;
+    align-self: flex-start;
+    border-radius: 3px;
+    object-fit: cover;
+}
+
+.chat .chat-details p{
+    font-size: 17px;
+    padding: 0 50px 0 25px;
+}
+
+span.material-symbols-outlined{
+    cursor: pointer;
+}
+
+.typing-animation{
+    display: inline-flex; /*blok elementten çıksın aynı zamanda flex özelliği de göstersin, bize esneklik sağlasın istedik*/
+    padding-left: 25px;
+}
+
+.typing-animation .typing-dot{
+    width: 7px;
+    height: 7px;
+    opacity: 0.7;
+    border-radius: 50%;
+    margin: 0 3px;
+    background-color: var(--text-color);
+    animation: animateDots 1.5s var(--delay) ease-in-out infinite;
+}   /*animasyon delay'ini html kısmında tanımladık*/
+    /*delay değişkeni ile animasyonun başlama süresini belirledik. 2s, 3s, 4s */
+    /*1.5s animasyonun toplam süresini belirtiyor*/
+    /*animasyon yavaş başlasın, ortada hızlansın sonra tekrar yavaşlasın*/
+
+@keyframes animateDots {
+    0%, 44%{
+        transform: translateY(0px);
+    }
+    22%{
+        opacity: 0.5;
+        transform: translateY(-6px);
+    }
+    44%{
+        opacity: 0.25;
+    }
+}
+
+
+/* typing */
+.typing-container{
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: var(--outgoing-chat-bg);
+}
+
+.typing-container .typing-content{
+    max-width: 950px;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.typing-content .typing-textarea{
+    width: 100%;
+    display: flex;
+    position: relative;  /*içindeki butonu sağa alacağız*/
+}
+
+.typing-textarea textarea{
+    width: 100%;
+    height: 55px;
+    border: none;
+    border-radius: 5px;
+    max-height: 250px;
+    overflow-y: auto;
+    resize: none;
+    padding: 15px 25px 15px 20px;
+    color: var(--text-color);
+    background-color: var(--incoming-chat-bg);
+    outline: 1px solid var(--incoming-chat-bg);
+}
+
+.typing-textarea textarea::placeholder{
+    color: var(--placeholder-color);
+    letter-spacing: 1px;
+}
+
+.typing-textarea span{
+    font-size: 23px;
+    font-weight: 600;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    visibility: hidden;
+}
+
+.typing-textarea textarea:valid ~ span{
+    visibility: visible;
+}
+/*
+textarea'nın içinin dolu olup olmadığı valid ile kontrol ediliyor
+~ işaretle de textarea dolu olduğunda span görünür olsun diyoruz
+*/
+
+.typing-content span{
+    height: 55px;
+    width: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--icon-color);
+}
+
+.typing-controls{
+    display: flex;
+}
+
+.typing-controls span{
+    margin-left: 7px;
+    font-size: 23px;
+    font-weight: 600;
+    background-color: var(--incoming-chat-bg);
+    border-radius: 5px;
+}
+
+.error{
+    color: #e55965;
+}
+/* 
+diyelim api den cevap gelmedi. ekranda bir hata yazısı yazdırırız ona da bir class 
+veririz.bunun classını burada yazdık. js de kullanacağız.
+*/
+
+.default-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 77vh;
+    text-align: center;
+    color: var(--text-color);
+}
