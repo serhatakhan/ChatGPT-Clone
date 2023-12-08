@@ -6,7 +6,7 @@ This project includes a clone of ChatGPT developed using OpenAI's GPT-3 API. Thr
 
 * The user interface has a simple and easy-to-use design for users to ask questions and see ChatGPT's answers.
 * With ChatGPT, real-time interaction is possible and answers are displayed quickly.
-* The chat history is automatically saved using browser local storage and is preserved even when the page is refreshed.
+* The chat history is automatically saved using browser **local storage** and is preserved even when the page is refreshed.
 * A simple and understandable user interface allows users to easily make their questions or text inputs.
 * Users can personalize the interface theme by switching between light and dark modes.
 
