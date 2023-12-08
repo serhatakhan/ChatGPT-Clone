@@ -7,7 +7,7 @@ console.log(deleteButton)
 
 let userText = null   //soru soracağımız yerin içindeki veriyi almak için globalde bir let tanımladık. başlangıçta biz null yaptık. boş string de olurdu
 
-const API_KEY = "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"
+const API_KEY = // private...
 
 const initialHeight = chatInput.scrollHeight
 
